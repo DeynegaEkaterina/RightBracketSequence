@@ -1,64 +1,38 @@
 #include <iostream>
+#include <vector>
 
-bool LeftBracket(std::string& s){
-    int i = 0;
-    i = s.find("(");
-    int k = 0;
-    k = s.find(")");
-    if(i < k)
-    {
-      //  std::cout << "true" << std::endl;
-        return true;
-    }
-    else {
-        //std::cout << "false" << std::endl;
-        return false;
-    }
-}
 
-bool RightBracket(std::string& s){
-    size_t i;
-    i = s.find_last_of(")");
-    size_t k;
-    k = s.find_last_of("(");
-    if(i > k)
-    {
-        //std::cout << "true" << std::endl;
-        return true;
-    }
-    else {
-        //std::cout << "false" << std::endl;
-        return false;
-    }
-}
+
 bool isRight(std::string& s) {
     int len = s.length();
-        int counter1 = 0;
-        int counter2 = 0;
+    std::vector<size_t> v;
+    std::vector<size_t> v2;
 
-        for (int i = 0; i < len; i++) {
-        if (s[i] == '(') {
-            counter1++;
-        }
-        if (s[i] == ')') {
-            counter2++;
+    for (int k = 0; k < len; k++) {
+        if (s[k] == '(') {
+            v.push_back(k);
+        }else  if (s[k] == ')') {
+            v2.push_back(k);
         }
     }
-    if ((counter1 == counter2) && RightBracket(s) && LeftBracket(s)) {
-        std::cout << "true" << std::endl;
-        return true;
-    } else {
-        std::cout << "false" << std::endl;
-        return false;
-    }
+    if(v.size() == v2.size()) {
+        for (int i = 0; i < v.size(); i++) {
+            if(!(v[i] < v2[i])){
+                std::cout << "false";
+                return false;
+        }
+        }
 
+    }
+    std::cout << "true";
+    return true;
 }
 
 
 int main() {
-    std::string right = "(dhb()hdk)";
+    std::string right = "tt())(()";
     std::string wrong = ")((dhhd(djjd)(";
     isRight(right);
-    isRight(wrong);
+
     return 0;
 }
